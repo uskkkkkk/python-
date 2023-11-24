@@ -1,1 +1,26 @@
+import re
 
+def check_password(password):
+    # Проверка на количество символов
+    if len(password) < 8:
+        return False
+    
+    # Проверка на наличие латинских символов в нижнем регистре
+    if not re.search(r'[a-z].*[a-z]', password):
+        return False
+    
+    # Проверка на наличие цифры
+    if not re.search(r'\d', password):
+        return False
+    
+    # Проверка на наличие трех различных специальных символов
+    special_chars = r'^$%@#&*'
+    count_special_chars = len(re.findall(r'[' + special_chars + ']', password))
+    if count_special_chars < 3:
+        return False
+    
+    # Проверка на отсутствие запрещенных символов
+    if re.search(r'[,.\?!]', password):
+        return False
+    
+    return True
